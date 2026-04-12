@@ -11,5 +11,5 @@ node_modules/
 dist/
 # Logslogs/
 *.log
-#Virtual environment
+# virttual environment
 venv/
