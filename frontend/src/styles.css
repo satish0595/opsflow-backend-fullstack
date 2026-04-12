@@ -1,0 +1,96 @@
+:root {
+  font-family: Inter, Arial, sans-serif;
+  color: #1f2937;
+  background: #f7f8fb;
+}
+
+body {
+  margin: 0;
+}
+
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+header {
+  margin-bottom: 24px;
+}
+
+.grid {
+  display: grid;
+  gap: 16px;
+}
+
+.stats-grid {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  margin-bottom: 24px;
+}
+
+.two-col {
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 24px;
+}
+
+.card, .panel {
+  background: white;
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.value {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.form {
+  display: grid;
+  gap: 10px;
+}
+
+input, textarea, select, button {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.muted {
+  color: #6b7280;
+}
+
+.task-box {
+  margin-top: 14px;
+  padding: 12px;
+  background: #f3f4f6;
+  border-radius: 10px;
+}
+
+pre {
+  white-space: pre-wrap;
+  font-size: 0.9rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  text-align: left;
+  padding: 10px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+@media (max-width: 800px) {
+  .two-col {
+    grid-template-columns: 1fr;
+  }
+}
