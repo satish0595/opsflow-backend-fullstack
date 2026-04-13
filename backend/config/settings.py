@@ -3,10 +3,19 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# 🔐 SECURITY
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'unsafe-dev-key')
-DEBUG = os.getenv('DJANGO_DEBUG', 'True') == 'True'
-ALLOWED_HOSTS = [host.strip() for host in os.getenv('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',') if host.strip()]
-CORS_ALLOWED_ORIGINS = [origin.strip() for origin in os.getenv('CORS_ALLOWED_ORIGINS', 'http://localhost:5173').split(',') if origin.strip()]
+DEBUG = os.getenv('DJANGO_DEBUG', 'False') == 'True'
+
+ALLOWED_HOSTS = [host.strip() for host in os.getenv(
+    'DJANGO_ALLOWED_HOSTS',
+    'localhost,127.0.0.1'
+).split(',') if host.strip()]
+
+CORS_ALLOWED_ORIGINS = [origin.strip() for origin in os.getenv(
+    'CORS_ALLOWED_ORIGINS',
+    'http://localhost:5173'
+).split(',') if origin.strip()]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -29,6 +38,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -54,13 +65,14 @@ ASGI_APPLICATION = 'config.asgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'opsflow_db',
-        'USER': 'postgres',
-        'PASSWORD': '1234',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': os.getenv('DB_NAME', 'opsflow_db'),
+        'USER': os.getenv('DB_USER', 'postgres'),
+        'PASSWORD': os.getenv('DB_PASSWORD', ''),
+        'HOST': os.getenv('DB_HOST', 'localhost'),
+        'PORT': os.getenv('DB_PORT', '5432'),
     }
 }
+
 
 REDIS_URL = os.getenv('REDIS_URL', 'redis://localhost:6379/0')
 
@@ -85,7 +97,8 @@ TIME_ZONE = 'Europe/Paris'
 USE_I18N = True
 USE_TZ = True
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
